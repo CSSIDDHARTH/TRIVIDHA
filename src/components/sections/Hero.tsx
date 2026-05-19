@@ -8,10 +8,13 @@ export default function Hero() {
     offset: ["start start", "end end"]
   });
 
-  // Text "Woven Royalty" moves fast over the image
-  // It moves fast in the first 25% of the scroll
-  const textY = useTransform(scrollYProgress, [0, 0.25], [0, -1200]);
-  const textOpacity = useTransform(scrollYProgress, [0.2, 0.25], [1, 0]);
+  // Text 1: "More Than Just Sarees"
+  const text1Y = useTransform(scrollYProgress, [0, 0.15, 0.25], [0, 0, -1000]);
+  const text1Opacity = useTransform(scrollYProgress, [0, 0.15, 0.2], [1, 1, 0]);
+
+  // Text 2: "A Bond Woven Through Generations"
+  const text2Y = useTransform(scrollYProgress, [0, 0.45, 0.55], [0, 0, -1000]);
+  const text2Opacity = useTransform(scrollYProgress, [0.2, 0.3, 0.45, 0.5], [0, 1, 1, 0]);
 
   // Reveal animation for the image
   const imageScale = useTransform(scrollYProgress, [0, 0.6], [1.2, 1]);
@@ -34,23 +37,35 @@ export default function Hero() {
         >
           <div className="absolute inset-0 bg-gradient-to-b from-brand-black/40 via-transparent to-brand-black/80 z-10" />
           <img 
-            src="/images/hero.jpg" 
-            alt="TRIVIDHA Heritage Collection" 
+            src="/images/hero.jpg"
+            srcSet="/images/hero.jpg 2000w, /images/hero.jpg 3000w"
+            sizes="(max-width: 768px) 100vw, 1200px"
+            alt="TRIVIDHA Heritage Collection"
             onError={(e) => {
               (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1583394838336-acd977730f8a?q=80&w=2000&auto=format&fit=crop";
             }}
-            className="w-full h-full object-cover brightness-[0.6] contrast-[1.2]"
+            className="w-full h-full object-cover brightness-[1] contrast-[1]"
           />
         </motion.div>
 
-        {/* Initial Text - Moves very fast */}
+        {/* Text 1: "More Than a Saree" */}
         <motion.div 
-          style={{ y: textY, opacity: textOpacity }}
-          className="relative z-20 text-center pointer-events-none"
+          style={{ y: text1Y, opacity: text1Opacity }}
+          className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center pointer-events-none px-6"
         >
           <span className="block font-sans text-xs uppercase tracking-[1.2em] text-brand-gold mb-10 opacity-80">Since 1892</span>
-          <h2 className="text-7xl md:text-[15rem] font-serif text-white tracking-tighter leading-[0.7]">
-             Woven <br /> <span className="italic">Royalty</span>
+          <h2 className="text-5xl md:text-[8rem] font-serif text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-white tracking-tighter leading-tight pb-4">
+            More Than<br /> <span className="italic">Just Sarees</span>
+          </h2>
+        </motion.div>
+
+        {/* Text 2: "A Bond Woven Through Generations" */}
+        <motion.div 
+          style={{ y: text2Y, opacity: text2Opacity }}
+          className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center pointer-events-none px-6"
+        >
+          <h2 className="text-4xl md:text-[6rem] font-serif text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-white tracking-tighter leading-tight pb-4">
+            A Bond<br /> <span className="italic">Woven Through Generations</span>
           </h2>
         </motion.div>
 

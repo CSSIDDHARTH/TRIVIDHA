@@ -21,7 +21,7 @@ export default function Navbar() {
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
         "fixed top-0 left-0 w-full z-[100] transition-all duration-500 px-6 py-4",
-        isScrolled ? "bg-brand-black/0.5 backdrop-blur-lg border-b gold-border py-3" : "bg-transparent"
+        isScrolled ? "bg-brand-black backdrop-blur-lg border-b gold-border py-3" : "bg-transparent"
       )}
     >
       <div className="max-w-screen-2xl mx-auto flex items-center justify-between">

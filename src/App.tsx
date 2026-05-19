@@ -44,7 +44,7 @@ function LoadingScreen() {
           transition={{ duration: 1.5, ease: "easeOut" }}
           src="/images/logo.png"
           alt="Trividha Logo"
-          className="w-48 md:w-64 mx-auto mb-4 object-contain"
+          className="w-96 md:w-[512px] mx-auto mb-4 object-contain"
         />
         <motion.div 
           initial={{ width: 0 }}

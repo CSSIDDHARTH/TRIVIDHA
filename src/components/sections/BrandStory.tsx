@@ -74,7 +74,7 @@ export default function BrandStory() {
       
       {/* Background Text */}
       <h2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-serif opacity-[0.02] whitespace-nowrap pointer-events-none select-none">
-        HERITAGE
+        TRADITION
       </h2>
     </section>
   );
