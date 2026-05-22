@@ -11,6 +11,8 @@ import Footer from './components/layout/Footer';
 import SmoothScroll from './components/layout/SmoothScroll';
 import CustomCursor from './components/ui/CustomCursor';
 import AnimatedBackground from './components/ui/AnimatedBackground';
+import CartDrawer from './components/layout/CartDrawer';
+import MagneticButton from './components/ui/MagneticButton';
 
 function ScrollProgress() {
   const { scrollYProgress } = useScroll();
@@ -33,15 +35,15 @@ function LoadingScreen() {
     <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: 0 }}
-      transition={{ duration: 1, delay: 2, ease: "easeInOut" }}
+      transition={{ duration: 0.8, delay: 0.5, ease: "easeInOut" }}
       onAnimationComplete={() => document.body.style.overflow = "auto"}
       className="fixed inset-0 z-[9999] bg-brand-black flex items-center justify-center pointer-events-none"
     >
       <div className="text-center">
         <motion.img 
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           src="/images/logo.png"
           alt="Trividha Logo"
           className="w-96 md:w-[512px] mx-auto mb-4 object-contain"
@@ -49,7 +51,7 @@ function LoadingScreen() {
         <motion.div 
           initial={{ width: 0 }}
           animate={{ width: "100%" }}
-          transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
           className="h-[1px] bg-brand-gold max-w-[200px] mx-auto"
         />
       </div>
@@ -79,6 +81,8 @@ function Spotlight() {
 }
 
 export default function App() {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
   useEffect(() => {
     // Prevent scroll during loading
     document.body.style.overflow = "hidden";
@@ -86,14 +90,20 @@ export default function App() {
 
   return (
     <SmoothScroll>
-      <div className="relative min-h-screen">
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+        className="relative min-h-screen"
+      >
         <LoadingScreen />
         <CustomCursor />
         <Spotlight />
         <ScrollProgress />
         <AnimatedBackground />
         
-        <Navbar />
+        <Navbar onOpenCart={() => setIsCartOpen(true)} />
+        <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
         
         <main>
           <Hero />
@@ -104,7 +114,7 @@ export default function App() {
           <Testimonials />
           
           {/* CTA Section */}
-          <section className="py-64 px-6 text-center relative overflow-hidden group">
+          <section className="py-32 md:py-64 px-6 text-center relative overflow-hidden group">
             {/* Background Image Layer */}
             <div className="absolute inset-0 z-0">
                <motion.img 
@@ -124,26 +134,28 @@ export default function App() {
             </div>
 
             <motion.div
-              initial={{ opacity: 0, y: 60 }}
+              initial={{ opacity: 0, y: 80 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
               className="max-w-4xl mx-auto relative z-20"
             >
-              <h2 className="text-6xl md:text-[11rem] font-serif mb-20 leading-[0.8] text-white drop-shadow-2xl">
+              <h2 className="text-4xl md:text-[11rem] font-serif mb-12 md:mb-20 leading-[1.1] md:leading-[0.8] text-white drop-shadow-2xl">
                 Begin your <br />
                 <span className="italic text-brand-gold">legacy.</span>
               </h2>
-              <button className="group relative px-24 py-8 border border-brand-gold text-brand-gold font-sans text-[10px] uppercase tracking-[0.7em] overflow-hidden transition-all duration-700 hover:text-brand-black">
-                <span className="relative z-10">Book a Private Viewing</span>
-                <div className="absolute inset-0 bg-brand-gold translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16, 1, 0.3, 1]" />
-              </button>
+              <div className="flex justify-center">
+                <button className="group relative px-12 md:px-24 py-5 md:py-8 border border-brand-gold font-sans text-[10px] md:text-sm uppercase tracking-[0.4em] overflow-hidden transition-all duration-500 hover:scale-105 active:scale-95 bg-brand-black/20 backdrop-blur-sm">
+                  <span className="relative z-10 text-white group-hover:text-brand-black font-medium transition-colors duration-500">Book a Private Viewing</span>
+                  <div className="absolute inset-0 bg-brand-gold translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16, 1, 0.3, 1] z-0" />
+                </button>
+              </div>
             </motion.div>
           </section>
         </main>
         
         <Footer />
-      </div>
+      </motion.div>
     </SmoothScroll>
   );
 }
