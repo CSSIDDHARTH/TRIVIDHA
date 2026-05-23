@@ -35,7 +35,7 @@ function LoadingScreen() {
     <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: 0 }}
-      transition={{ duration: 0.8, delay: 0.5, ease: "easeInOut" }}
+      transition={{ duration: 0.8, delay: 1.5, ease: "easeInOut" }}
       onAnimationComplete={() => document.body.style.overflow = "auto"}
       className="fixed inset-0 z-[9999] bg-brand-black flex items-center justify-center pointer-events-none"
     >
@@ -133,24 +133,40 @@ export default function App() {
                <div className="absolute inset-0 bg-brand-black/30 z-10" />
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 80 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-4xl mx-auto relative z-20"
-            >
+            <div className="max-w-4xl mx-auto relative z-20">
               <h2 className="text-4xl md:text-[11rem] font-serif mb-12 md:mb-20 leading-[1.1] md:leading-[0.8] text-white drop-shadow-2xl">
-                Begin your <br />
-                <span className="italic text-brand-gold">legacy.</span>
+                <motion.span
+                  initial={{ opacity: 0, x: -200 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+                  className="block"
+                >
+                  Begin your
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, x: 200 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+                  className="block italic text-brand-gold"
+                >
+                  legacy.
+                </motion.span>
               </h2>
-              <div className="flex justify-center">
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 1.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="flex justify-center"
+              >
                 <button className="group relative px-12 md:px-24 py-5 md:py-8 border border-brand-gold font-sans text-[10px] md:text-sm uppercase tracking-[0.4em] overflow-hidden transition-all duration-500 hover:scale-105 active:scale-95 bg-brand-black/20 backdrop-blur-sm">
                   <span className="relative z-10 text-white group-hover:text-brand-black font-medium transition-colors duration-500">Book a Private Viewing</span>
                   <div className="absolute inset-0 bg-brand-gold translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16, 1, 0.3, 1] z-0" />
                 </button>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </section>
         </main>
         

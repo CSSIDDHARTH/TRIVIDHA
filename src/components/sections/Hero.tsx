@@ -8,7 +8,7 @@ export default function Hero() {
     offset: ["start start", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -250]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
@@ -40,6 +40,15 @@ export default function Hero() {
         <h2 className="text-6xl sm:text-7xl md:text-[8rem] font-serif text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-white tracking-tighter leading-[1.1] md:leading-tight pb-4">
           More Than<br /> <span className="italic">Just Sarees</span>
         </h2>
+        
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 1 }}
+          className="mt-2 text-xl md:text-3xl text-brand-gold/80 font-serif italic tracking-wide"
+        >
+          A bond Woven Through Generations
+        </motion.p>
         
         {/* Simple Scroll Hint */}
         <motion.div 
