@@ -26,23 +26,37 @@ export default function Testimonials() {
         <div className="flex flex-col md:flex-row gap-12 items-start">
           <div className="md:w-1/3">
             <motion.h2 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
               className="text-4xl md:text-5xl font-serif leading-tight mb-8"
             >
               Voices of <br />
               <span className="italic">Grace.</span>
             </motion.h2>
-            <Quote className="w-12 h-12 text-brand-gold opacity-30" />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 0.3, scale: 1 }}
+              viewport={{ once: false }}
+              transition={{ duration: 1, delay: 0.2 }}
+            >
+              <Quote className="w-12 h-12 text-brand-gold" />
+            </motion.div>
           </div>
 
           <div className="md:w-2/3 space-y-12">
             {REVIEWS.map((review, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.2 }}
+                initial={{ opacity: 0, y: 40, filter: "blur(8px)", scale: 0.98 }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
+                viewport={{ once: false, amount: 0.15 }}
+                transition={{
+                  duration: 1.2,
+                  delay: i * 0.15,
+                  ease: [0.16, 1, 0.3, 1]
+                }}
                 className="border-b border-white/5 pb-10 last:border-0"
               >
                 <p className="text-xl md:text-2xl font-serif italic mb-6 leading-relaxed opacity-80">
