@@ -40,46 +40,32 @@ export default function Lookbook() {
     offset: ["start end", "end start"]
   });
 
-  const headerOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
-  const headerY       = useTransform(scrollYProgress, [0, 0.15], [60, 0]);
-
-  // Label and heading line slide in from opposite sides
-  const labelX     = useTransform(scrollYProgress, [0, 0.2], [-80, 0]);
-  const headlineXA = useTransform(scrollYProgress, [0, 0.22], [-120, 0]);
-  const headlineXB = useTransform(scrollYProgress, [0, 0.22], [120, 0]);
-  const subOpacity = useTransform(scrollYProgress, [0.1, 0.25], [0, 1]);
-  const subY       = useTransform(scrollYProgress, [0.1, 0.25], [30, 0]);
+  const headerOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
+  const headerY = useTransform(scrollYProgress, [0, 0.2], [50, 0]);
 
   return (
-    <section
-      ref={containerRef}
+    <section 
+      ref={containerRef} 
       className="py-24 md:py-48 bg-brand-black overflow-hidden"
     >
       <div className="w-full px-6 md:px-12">
         {/* Editorial Header */}
-        <motion.div
+        <motion.div 
           style={{ opacity: headerOpacity, y: headerY }}
           className="mb-16 md:mb-32 flex flex-col items-start max-w-screen-2xl mx-auto"
         >
-          <motion.span
-            style={{ x: labelX, opacity: headerOpacity }}
-            className="text-[10px] md:text-xs uppercase tracking-[0.8em] text-brand-gold mb-6 md:mb-8 block"
-          >
+          <span className="text-[10px] md:text-xs uppercase tracking-[0.8em] text-brand-gold mb-6 md:mb-8 block">
             Visual Narratives
-          </motion.span>
-          <h2 className="text-4xl md:text-[10rem] font-serif leading-[1.1] md:leading-[0.95] tracking-tighter">
-            <motion.span style={{ x: headlineXA, display: 'block' }}>
-              Spread the
-            </motion.span>
-            <motion.span style={{ x: headlineXB, display: 'block' }} className="italic text-brand-gold ml-[0.1em] py-2">
-              Legacy
-            </motion.span>
+          </span>
+          <h2 className="text-4xl md:text-[10rem] font-serif leading-[1.1] md:leading-[0.85] tracking-tighter">
+            Spread the <br />
+            <span className="italic text-brand-gold ml-[0.1em]">Legacy</span>
           </h2>
-          <motion.div style={{ opacity: subOpacity, y: subY }} className="mt-8 md:mt-12 max-w-md">
+          <div className="mt-8 md:mt-12 max-w-md">
             <p className="text-sm md:text-base text-brand-gold/60 font-light leading-relaxed tracking-wide">
               An asymmetric journey through the threads of time. Each frame captures a moment where tradition meets modern editorial aesthetics.
             </p>
-          </motion.div>
+          </div>
         </motion.div>
 
         {/* Asymmetric Overlapping Grid - Full Width */}
@@ -95,17 +81,11 @@ export default function Lookbook() {
             />
           ))}
           
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ amount: 0.4 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="col-span-6 md:col-span-4 md:col-start-2 mt-12 md:mt-24"
-          >
+          <div className="col-span-6 md:col-span-4 md:col-start-2 mt-12 md:mt-24">
             <p className="text-lg md:text-4xl font-serif italic text-white/40 leading-tight">
               "The beauty of a saree lies in the stories woven into its very fabric."
             </p>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

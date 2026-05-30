@@ -51,8 +51,7 @@ export default function Navbar({ onOpenCart }: NavbarProps) {
           <div className="flex-1 flex items-center gap-4 lg:gap-10">
             <MagneticButton>
               <button 
-                onClick={() => setIsMobileMenuOpen(true)}
-                className="p-2 hover:text-brand-gold transition-colors duration-300"
+                className="p-2 hover:text-brand-gold transition-colors duration-300 cursor-default"
               >
                 <Menu className="w-5 h-5 md:w-6 md:h-6" />
               </button>
@@ -87,8 +86,7 @@ export default function Navbar({ onOpenCart }: NavbarProps) {
             </MagneticButton>
             <MagneticButton>
               <button 
-                onClick={onOpenCart}
-                className="p-2 hover:text-brand-gold transition-colors duration-300 relative"
+                className="p-2 hover:text-brand-gold transition-colors duration-300 relative cursor-default"
               >
                 <ShoppingBag className="w-5 h-5 md:w-6 md:h-6" />
                 <span className="absolute top-1 right-1 w-1.5 h-1.5 md:w-2 md:h-2 bg-brand-gold rounded-full" />

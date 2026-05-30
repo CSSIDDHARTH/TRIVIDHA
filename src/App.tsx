@@ -1,5 +1,5 @@
-import { motion, useScroll, useSpring, useTransform } from 'motion/react';
-import { useEffect, useState, useRef } from 'react';
+import { motion, useScroll, useSpring } from 'motion/react';
+import { useEffect, useState } from 'react';
 import Hero from './components/sections/Hero';
 import BrandStory from './components/sections/BrandStory';
 import FeaturedCollection from './components/sections/FeaturedCollection';
@@ -35,24 +35,26 @@ function LoadingScreen() {
     <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: 0 }}
-      transition={{ duration: 0.8, delay: 1.5, ease: "easeInOut" }}
-      onAnimationComplete={() => document.body.style.overflow = "auto"}
+      transition={{ duration: 0.5, delay: 1.2, ease: "linear" }}
+      onAnimationComplete={() => {
+        document.body.style.overflow = "auto";
+      }}
       className="fixed inset-0 z-[9999] bg-brand-black flex items-center justify-center pointer-events-none"
     >
-      <div className="text-center">
+      <div className="text-center px-6">
         <motion.img 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           src="/images/logo.png"
           alt="Trividha Logo"
-          className="w-96 md:w-[512px] mx-auto mb-4 object-contain"
+          className="w-72 md:w-[512px] mx-auto mb-4 object-contain"
         />
         <motion.div 
-          initial={{ width: 0 }}
-          animate={{ width: "100%" }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeInOut" }}
-          className="h-[1px] bg-brand-gold max-w-[200px] mx-auto"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+          className="h-[1px] bg-brand-gold w-32 md:w-[200px] mx-auto origin-center mt-4"
         />
       </div>
     </motion.div>
@@ -82,26 +84,6 @@ function Spotlight() {
 
 export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const ctaRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress: ctaScroll } = useScroll({
-    target: ctaRef,
-    offset: ["start end", "end start"]
-  });
-
-  // Scale from 1.15 to 1.0 as we scroll
-  const bgScale = useTransform(ctaScroll, [0, 0.75], [1.15, 1]);
-  // Fade image in as section enters
-  const bgOpacity = useTransform(ctaScroll, [0, 0.35], [0, 1]);
-
-  // Left and right text fly-ins based on scroll position
-  const textLeftX = useTransform(ctaScroll, [0, 0.35], ["-50%", "0%"]);
-  const textRightX = useTransform(ctaScroll, [0, 0.35], ["50%", "0%"]);
-  const textOpacity = useTransform(ctaScroll, [0.05, 0.32], [0, 1]);
-
-  // Button fade up
-  const btnY = useTransform(ctaScroll, [0.12, 0.4], [60, 0]);
-  const btnOpacity = useTransform(ctaScroll, [0.12, 0.35], [0, 1]);
 
   useEffect(() => {
     // Prevent scroll during loading
@@ -110,13 +92,13 @@ export default function App() {
 
   return (
     <SmoothScroll>
+      <LoadingScreen />
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
+        transition={{ duration: 1, delay: 1.5, ease: "easeOut" }}
         className="relative min-h-screen"
       >
-        <LoadingScreen />
         <CustomCursor />
         <Spotlight />
         <ScrollProgress />
@@ -134,11 +116,13 @@ export default function App() {
           <Testimonials />
           
           {/* CTA Section */}
-          <section ref={ctaRef} className="py-32 md:py-64 px-6 text-center relative overflow-hidden group">
+          <section className="pt-16 pb-32 md:py-64 px-6 text-center relative overflow-hidden group">
             {/* Background Image Layer */}
             <div className="absolute inset-0 z-0">
                <motion.img 
-                  style={{ scale: bgScale, opacity: bgOpacity }}
+                  initial={{ scale: 1.15, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
                   src="/images/saree.png" 
                   alt="Begin your legacy"
                   className="w-full h-full object-cover filter brightness-[0.4] contrast-[1.2]"
@@ -151,31 +135,24 @@ export default function App() {
                <div className="absolute inset-0 bg-brand-black/30 z-10" />
             </div>
 
-            <div className="max-w-4xl mx-auto relative z-20">
+            <motion.div
+              initial={{ opacity: 0, y: 80 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+              className="max-w-4xl mx-auto relative z-20"
+            >
               <h2 className="text-4xl md:text-[11rem] font-serif mb-12 md:mb-20 leading-[1.1] md:leading-[0.8] text-white drop-shadow-2xl">
-                <motion.span
-                  style={{ x: textLeftX, opacity: textOpacity }}
-                  className="block"
-                >
-                  Begin your
-                </motion.span>
-                <motion.span
-                  style={{ x: textRightX, opacity: textOpacity }}
-                  className="block italic text-brand-gold"
-                >
-                  legacy.
-                </motion.span>
+                Begin your <br />
+                <span className="italic text-brand-gold">legacy.</span>
               </h2>
-              <motion.div
-                style={{ y: btnY, opacity: btnOpacity }}
-                className="flex justify-center"
-              >
+              <div className="flex justify-center">
                 <button className="group relative px-12 md:px-24 py-5 md:py-8 border border-brand-gold font-sans text-[10px] md:text-sm uppercase tracking-[0.4em] overflow-hidden transition-all duration-500 hover:scale-105 active:scale-95 bg-brand-black/20 backdrop-blur-sm">
                   <span className="relative z-10 text-white group-hover:text-brand-black font-medium transition-colors duration-500">Book a Private Viewing</span>
                   <div className="absolute inset-0 bg-brand-gold translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16, 1, 0.3, 1] z-0" />
                 </button>
-              </motion.div>
-            </div>
+              </div>
+            </motion.div>
           </section>
         </main>
         
